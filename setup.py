@@ -22,4 +22,5 @@ setup(
         'console_scripts': [
         ],
     },
+    (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.world'))),
 )
