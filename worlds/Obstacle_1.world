@@ -71,408 +71,7 @@
     <model name="box_obstacle_1">
       <static>true</static>
       <link name="link">
-        <pose>5 5 0.5 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1 1 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1 1 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>1 0 0 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Boîte 2 -->
-    <model name="box_obstacle_2">
-      <static>true</static>
-      <link name="link">
-        <pose>-8 3 0.5 0 0 0.7</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.5 0.5 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.5 0.5 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>1 1 0 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Boîte 3 -->
-    <model name="box_obstacle_3">
-      <static>true</static>
-      <link name="link">
-        <pose>3 -6 0.5 0 0 0.5</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.8 1.2 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.8 1.2 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.5 0 0.5 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Cylindre 1 -->
-    <model name="cylinder_obstacle_1">
-      <static>true</static>
-      <link name="link">
-        <pose>-3 2 0.5 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.5</radius>
-              <length>1</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.5</radius>
-              <length>1</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0 1 0 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Cylindre 2 -->
-    <model name="cylinder_obstacle_2">
-      <static>true</static>
-      <link name="link">
-        <pose>0 6 0.7 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.4</radius>
-              <length>1.4</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.4</radius>
-              <length>1.4</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>1 0 1 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Cylindre 3 -->
-    <model name="cylinder_obstacle_3">
-      <static>true</static>
-      <link name="link">
-        <pose>-6 -4 0.6 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.35</radius>
-              <length>1.2</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.35</radius>
-              <length>1.2</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>1 0.5 0 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Sphère 1 -->
-    <model name="sphere_obstacle_1">
-      <static>true</static>
-      <link name="link">
-        <pose>2 -3 1 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <sphere>
-              <radius>0.75</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.75</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0 0 1 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Sphère 2 -->
-    <model name="sphere_obstacle_2">
-      <static>true</static>
-      <link name="link">
-        <pose>-2 4 0.6 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <sphere>
-              <radius>0.6</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.6</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0 1 1 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Sphère 3 -->
-    <model name="sphere_obstacle_3">
-      <static>true</static>
-      <link name="link">
-        <pose>7 -2 0.8 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <sphere>
-              <radius>0.5</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.5</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <ambient>0.5 0.5 0 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- MUR NORD -->
-    <model name="wall_north">
-      <static>true</static>
-      <link name="link">
-        <pose>0 10 0.5 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>20 0.5 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>20 0.5 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.3 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- MUR SUD -->
-    <model name="wall_south">
-      <static>true</static>
-      <link name="link">
-        <pose>0 -10 0.5 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>20 0.5 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>20 0.5 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.3 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- MUR EST -->
-    <model name="wall_east">
-      <static>true</static>
-      <link name="link">
-        <pose>10 0 0.5 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.5 20 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.5 20 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.3 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- MUR OUEST -->
-    <model name="wall_west">
-      <static>true</static>
-      <link name="link">
-        <pose>-10 0 0.5 0 0 0</pose>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.5 20 1</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.5 20 1</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.3 1</ambient>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-  </world>
-</sdf><sdf version="1.6">
-  <world name="Obstacle_1">
-    <physics name="1ms" type="ignored">
-      <max_step_size>0.001</max_step_size>
-      <real_time_factor>1.0</real_time_factor>
-    </physics>
-    <plugin
-      filename="gz-sim-physics-system"
-      name="gz::sim::systems::Physics">
-    </plugin>
-    <plugin
-      filename="gz-sim-user-commands-system"
-      name="gz::sim::systems::UserCommands">
-    </plugin>
-    <plugin
-      filename="gz-sim-scene-broadcaster-system"
-      name="gz::sim::systems::SceneBroadcaster">
-    </plugin>
-    <plugin
-      filename="gz-sim-sensors-system"
-      name="gz::sim::systems::Sensors">
-      <render_engine>ogre2</render_engine>
-    </plugin>
-    <plugin
-      filename="gz-sim-contact-system"
-      name="gz::sim::systems::Contact">
-    </plugin>
-
-    <light type="directional" name="sun">
-      <cast_shadows>true</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <attenuation>
-        <range>1000</range>
-        <constant>0.9</constant>
-        <linear>0.01</linear>
-        <quadratic>0.001</quadratic>
-      </attenuation>
-      <direction>-0.5 0.1 -0.9</direction>
-    </light>
-
-    <model name="ground_plane">
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>200 150</size>
-            </plane>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>200 150</size>
-            </plane>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.8 0.8 0.8 1</diffuse>
-            <specular>0.8 0.8 0.8 1</specular>
-          </material>
-        </visual>
-      </link>
-    </model>
-
-    <!-- Boîte 1 -->
-    <model name="box_obstacle_1">
-      <static>true</static>
-      <link name="link">
-        <pose>2.5 2.5 0.5 0 0 0</pose>
+        <pose>2 2 0.5 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -497,7 +96,7 @@
     <model name="box_obstacle_2">
       <static>true</static>
       <link name="link">
-        <pose>-4 1.5 0.5 0 0 0.7</pose>
+        <pose>-2 1 0.5 0 0 0.7</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -522,7 +121,7 @@
     <model name="box_obstacle_3">
       <static>true</static>
       <link name="link">
-        <pose>1.5 -3 0.5 0 0 0.5</pose>
+        <pose>1 -2 0.5 0 0 0.5</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -547,7 +146,7 @@
     <model name="cylinder_obstacle_1">
       <static>true</static>
       <link name="link">
-        <pose>-1.5 1 0.5 0 0 0</pose>
+        <pose>-1.5 0.5 0.5 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <cylinder>
@@ -574,7 +173,7 @@
     <model name="cylinder_obstacle_2">
       <static>true</static>
       <link name="link">
-        <pose>0 3 0.7 0 0 0</pose>
+        <pose>0 2 0.7 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <cylinder>
@@ -601,7 +200,7 @@
     <model name="cylinder_obstacle_3">
       <static>true</static>
       <link name="link">
-        <pose>-3 -2 0.6 0 0 0</pose>
+        <pose>-2 -1.5 0.6 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <cylinder>
@@ -628,7 +227,7 @@
     <model name="sphere_obstacle_1">
       <static>true</static>
       <link name="link">
-        <pose>1 -1.5 1 0 0 0</pose>
+        <pose>0.5 -1.5 0.375 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <sphere>
@@ -653,7 +252,7 @@
     <model name="sphere_obstacle_2">
       <static>true</static>
       <link name="link">
-        <pose>-1 2 0.6 0 0 0</pose>
+        <pose>-0.5 1.5 0.3 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <sphere>
@@ -678,7 +277,7 @@
     <model name="sphere_obstacle_3">
       <static>true</static>
       <link name="link">
-        <pose>3.5 -1 0.8 0 0 0</pose>
+        <pose>2.5 -0.5 0.25 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <sphere>
@@ -699,11 +298,12 @@
       </link>
     </model>
 
+
     <!-- MUR NORD -->
     <model name="wall_north">
       <static>true</static>
       <link name="link">
-        <pose>0 5 0.25 0 0 0</pose>
+        <pose>0 5 0.5 0 0 0</pose>
         <collision name="collision">
           <geometry>
             <box>
@@ -798,6 +398,5 @@
         </visual>
       </link>
     </model>
-
   </world>
 </sdf>
