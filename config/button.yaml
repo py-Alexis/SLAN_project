@@ -1,0 +1,38 @@
+buttons:
+  - row: 0
+    label: "Team Blue"
+    topic: "/button_topic"
+    message: "blue"
+    publish_opponent: false
+    opponent_message: "yellow"
+    
+  - row: 0
+    label: "Team Yellow"
+    topic: "/button_topic"
+    message: "yellow"
+    publish_opponent: false
+    opponent_message: "blue"
+    
+  - row: 1
+    label: "Start"
+    topic: "/button_topic"
+    message: "start"
+    publish_opponent: false
+    
+  - row: 1
+    label: "Stop"
+    topic: "/button_topic"
+    message: "stop"
+    publish_opponent: false
+    
+  - row: 1
+    label: "Reset"
+    topic: "/button_topic"
+    message: "reset"
+    publish_opponent: false
+    
+  - row: 2
+    label: "Reset ESP"
+    topic: "/MainRobot/game_action/command"
+    message: "reset_esp"
+    publish_opponent: false
