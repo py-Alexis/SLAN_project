@@ -37,7 +37,7 @@ def generate_launch_description():
         launch_arguments={
             'button_config': button_config,
             'rviz_config': rviz_config,
-            "world": os.path.join(slan_package_share,'worlds','Obstacle_3.world')
+            "world": os.peth.join(slan_package_share,'worlds','Obstacle_3.world')
         }.items()
     )
 
@@ -57,7 +57,7 @@ def generate_launch_description():
         launch_arguments={
             'robot_namespace': '',
             'strategy_file': 'example.json',
-            'world_name': 'Obstacle_1'
+            'world_name': 'Obstacle_3'
             
         }.items()
     )
@@ -89,6 +89,6 @@ def generate_launch_description():
         start_sim,
         # static_tf_robot,
         spawn_robot,
-        slam_toolbox_test,
+        # slam_toolbox_test,
         nav_goal_pose_bridge,
     ])

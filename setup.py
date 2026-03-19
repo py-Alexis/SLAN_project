@@ -28,6 +28,8 @@ setup(
     entry_points={
         'console_scripts': [
             'nav_goal_pose_bridge = SLAN_project.nav_goal_pose_bridge:main',
+            'pathPlanner = SLAN_project.path_planner_node:main',
+            'purePursuit = SLAN_project.pure_pursuit_node:main',
         ],
     },
 )
