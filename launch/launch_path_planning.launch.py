@@ -58,6 +58,7 @@ def generate_launch_description():
                     {"obstacle_dilation": 8},
                     {"astar_downscale": 1.0},
                     {"unknown_as_free": True},
+                    {"enable_replanning": False},
                     # Replanning triggers
                     {"replan_distance_threshold": 0.15},
                     {"map_change_threshold": 0.05},
@@ -87,10 +88,10 @@ def generate_launch_description():
                     {"max_lookahead": 0.4},
                     {"adaptive_lookahead": True},
                     # Velocity limits
-                    {"max_linear_speed": 0.5},
-                    {"max_angular_speed": 1.0},
-                    {"linear_acceleration": 0.4},
-                    {"angular_acceleration": 2.0},
+                    {"max_linear_speed": 0.25},
+                    {"max_angular_speed": 0.7},
+                    {"linear_acceleration": 0.2},
+                    {"angular_acceleration": 1.2},
                     # Control parameters
                     {"goal_tolerance": 0.03},
                     {"kp_angular": 1.0},

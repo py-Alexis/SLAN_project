@@ -25,10 +25,19 @@ def generate_launch_description():
         )]), launch_arguments={'use_sim_time': 'false', 'use_namespace': ''}.items()
     )
 
-    rplidar = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(package_name), 'launch', 'rplidar.launch.py'
-        )])
+    rplidar = Node(
+        package='rplidar_ros',
+        executable='rplidar_node',
+        output='screen',
+        parameters=[{
+            'channel_type': 'serial',
+            'serial_port': '/dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_88567597506eef11b0b2e5c2c169b110-if00-port0',
+            'serial_baudrate': 460800,
+            'frame_id': 'laser_frame',
+            'inverted': False,
+            'angle_compensate': True,
+            'scan_mode': 'Standard'
+        }]
     )
 
     twist_mux_params = os.path.join(get_package_share_directory(package_name), 'config', 'twist_mux.yaml')
@@ -60,7 +69,8 @@ def generate_launch_description():
         executable='esp_serial_listener',
         parameters=[{
             'use_sim_time': False,
-            'port': '/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0'
+            'port': '/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0',
+            'baudrate': 115200
         }],
         output='screen'
     )
@@ -70,7 +80,8 @@ def generate_launch_description():
         executable='esp_serial_sender',
         parameters=[{
             'use_sim_time': False,
-            'port': '/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0'
+            'port': '/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0',
+            'baudrate': 115200
         }],
         output='screen'
     )
@@ -152,21 +163,40 @@ def generate_launch_description():
         }],
     )
 
+    path_planning = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(get_package_share_directory(slan_package_name), 'launch', 'launch_path_planning.launch.py')
+        ])
+    )
+
+    battery_monitor = Node(
+        package='top_secret_robot',
+        executable='battery_monitor',
+        parameters=[{
+            'use_sim_time': False,
+        }],
+        output='screen',
+        namespace="MainRobot" # so that it works with the rviz panel
+    )
+
+
     return LaunchDescription([
         # buttons,
         rsp,
-        # rplidar,
+        rplidar,
         twist_mux,
         # rviz,
         # obstacle_detection,
-        # esp_serial_listener,
-        # esp_serial_sender,
+        esp_serial_listener,
+        esp_serial_sender,
         odom_tf_broadcaster,
-        # joy_linux,
-        # teleop_twist_joy,
+        joy_linux,
+        teleop_twist_joy,
         # camera,
         lidar_led,
         table_publisher,
-        slam_toolbox_test,
-        nav_goal_pose_bridge,
+        # slam_toolbox_test,
+        # nav_goal_pose_bridge,
+        path_planning,
+        battery_monitor,
     ])

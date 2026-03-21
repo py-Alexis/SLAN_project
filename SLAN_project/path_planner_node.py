@@ -73,6 +73,7 @@ class PathPlannerNode(Node):
         self.declare_parameter("astar_downscale", 0.4)
         self.declare_parameter("replan_distance_threshold", 0.15)
         self.declare_parameter("map_change_threshold", 0.05)
+        self.declare_parameter("enable_replanning", True)
         self.declare_parameter("path_blend_distance", 0.3)
         self.declare_parameter("path_corridor_width", 0.2)  # meters around path to monitor
         self.declare_parameter("unknown_as_free", True)
@@ -252,6 +253,8 @@ class PathPlannerNode(Node):
     def _monitor_callback(self):
         """Check for replan triggers while a path is active."""
         if self.state != PlannerState.MONITORING:
+            return
+        if not self.get_parameter("enable_replanning").value:
             return
         if not self.has_odom:
             return
