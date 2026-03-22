@@ -197,6 +197,6 @@ def generate_launch_description():
         table_publisher,
         # slam_toolbox_test,
         # nav_goal_pose_bridge,
-        path_planning,
+        # path_planning,
         battery_monitor,
     ])

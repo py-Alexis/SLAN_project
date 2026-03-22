@@ -65,6 +65,8 @@ class PurePursuitNode(Node):
         self.declare_parameter("goal_tolerance", 0.03)
         self.declare_parameter("kp_angular", 2.0)
         self.declare_parameter("curve_slow_factor", 0.7)  # slow down on curves
+        self.declare_parameter("lateral_deadband", 0.015)  # meters
+        self.declare_parameter("angular_smoothing_alpha", 0.35)  # 0=no update, 1=no smoothing
         self.declare_parameter("initial_alignment_enabled", True)
         self.declare_parameter("initial_alignment_tolerance", 0.12)
         self.declare_parameter("initial_alignment_preview_distance", 0.25)
@@ -148,6 +150,8 @@ class PurePursuitNode(Node):
         self.stop_requested = False
         self.path_frame = msg.header.frame_id or "map"
         self.path_reverse = path[-1][2] > 0.5 if path else False
+        self.current_linear_vel = 0.0
+        self._publish_velocity(0.0, 0.0)
 
         with self.path_lock:
             if self.current_path is None:
@@ -161,6 +165,7 @@ class PurePursuitNode(Node):
                 old_path = self.current_path
                 self.current_path = path
                 self._reindex_closest_point()
+                self.initial_alignment_required = True
                 self.get_logger().info(
                     f"Path updated: {len(old_path)} → {len(path)} waypoints"
                 )
@@ -238,6 +243,10 @@ class PurePursuitNode(Node):
         rx = dx * math.cos(robot_yaw) + dy * math.sin(robot_yaw)
         ry = -dx * math.sin(robot_yaw) + dy * math.cos(robot_yaw)
 
+        lateral_deadband = self.get_parameter("lateral_deadband").value
+        if abs(ry) < lateral_deadband:
+            ry = 0.0
+
         # Pure pursuit curvature
         ld = math.sqrt(rx * rx + ry * ry)
         if ld < 1e-6:
@@ -271,6 +280,11 @@ class PurePursuitNode(Node):
         max_ang = self.get_parameter("max_angular_speed").value
         desired_ang = new_lin * curvature
         desired_ang = max(-max_ang, min(max_ang, desired_ang))
+
+        # Light smoothing on steering command to reduce oscillation buildup.
+        alpha = self.get_parameter("angular_smoothing_alpha").value
+        alpha = max(0.0, min(1.0, alpha))
+        desired_ang = alpha * desired_ang + (1.0 - alpha) * self.current_angular_vel
 
         ang_accel = self.get_parameter("angular_acceleration").value
         new_ang = self._apply_accel_profile(

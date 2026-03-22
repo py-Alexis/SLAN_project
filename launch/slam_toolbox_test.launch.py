@@ -25,7 +25,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(slam_launch_file),
             launch_arguments={
-                'params_file': params_file,
+                'slam_params_file': params_file,
                 'use_sim_time': use_sim_time
             }.items()
         ),

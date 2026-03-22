@@ -42,7 +42,7 @@ def generate_launch_description():
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(slam_launch),
                 launch_arguments={
-                    "params_file": mapper_params,
+                    "slam_params_file": mapper_params,
                     "use_sim_time": use_sim_time,
                 }.items(),
             ),
@@ -58,13 +58,13 @@ def generate_launch_description():
                     {"obstacle_dilation": 8},
                     {"astar_downscale": 1.0},
                     {"unknown_as_free": True},
-                    {"enable_replanning": False},
+                    {"enable_replanning": True},
                     # Replanning triggers
                     {"replan_distance_threshold": 0.15},
                     {"map_change_threshold": 0.05},
                     {"path_blend_distance": 0.3},
                     # Elastic Band parameters
-                    {"eb_spring_weight": 1.5},
+                    {"eb_spring_weight": 2.0},
                     {"eb_repulsive_weight": 0.6},
                     {"eb_max_iterations": 80},
                 ],
@@ -81,21 +81,23 @@ def generate_launch_description():
                 name="pure_pursuit",
                 # namespace="MainRobot",
                 parameters=[
-                    {"use_sim_time": use_sim_time},
+                                        {"use_sim_time": use_sim_time},
                     # Pure Pursuit parameters
-                    {"lookahead_distance": 0.15},
-                    {"min_lookahead": 0.08},
-                    {"max_lookahead": 0.4},
+                    {"lookahead_distance": 0.22},
+                    {"min_lookahead": 0.16},
+                    {"max_lookahead": 0.5},
                     {"adaptive_lookahead": True},
                     # Velocity limits
                     {"max_linear_speed": 0.25},
-                    {"max_angular_speed": 0.7},
+                    {"max_angular_speed": 0.5},
                     {"linear_acceleration": 0.2},
-                    {"angular_acceleration": 1.2},
+                    {"angular_acceleration": 0.8},
                     # Control parameters
-                    {"goal_tolerance": 0.03},
+                    {"goal_tolerance": 0.06},
                     {"kp_angular": 1.0},
                     {"curve_slow_factor": 0.7},
+                    {"lateral_deadband": 0.015},
+                    {"angular_smoothing_alpha": 0.35},
                 ],
                 output="screen",
             ),

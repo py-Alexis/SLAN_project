@@ -652,32 +652,100 @@ class PathPlannerNode(Node):
         if len(old_segment) == 0:
             return new_path
 
-        # Find closest point on new path to the blend endpoint
+        # Find best join point on new path near the blend endpoint, preferring heading continuity
         blend_end_x, blend_end_y = old_segment[-1]
+        old_heading = self._path_heading(old_segment, len(old_segment) - 1)
+        heading_weight = 0.35
+
         new_start_idx = 0
-        min_d = float("inf")
+        best_score = float("inf")
         for i, (px, py) in enumerate(new_path):
-            d = (px - blend_end_x) ** 2 + (py - blend_end_y) ** 2
-            if d < min_d:
-                min_d = d
+            dist2 = (px - blend_end_x) ** 2 + (py - blend_end_y) ** 2
+            new_heading = self._path_heading(new_path, i)
+            dtheta = abs(self._normalize_angle(new_heading - old_heading))
+            score = dist2 + heading_weight * (dtheta ** 2)
+            if score < best_score:
+                best_score = score
                 new_start_idx = i
 
-        # Splice: old_segment + interpolation point + new_path[new_start_idx:]
-        blended = list(old_segment)
+        # Build smooth transition with cubic Hermite interpolation
+        blended = list(old_segment[:-1])
 
-        # Add a few interpolation points between old end and new start
         if new_start_idx < len(new_path):
             end_old = old_segment[-1]
             start_new = new_path[new_start_idx]
-            for t in [0.25, 0.5, 0.75]:
-                ix = end_old[0] + t * (start_new[0] - end_old[0])
-                iy = end_old[1] + t * (start_new[1] - end_old[1])
-                blended.append((ix, iy))
+            new_heading = self._path_heading(new_path, new_start_idx)
+
+            connector = self._hermite_connector(
+                end_old,
+                start_new,
+                old_heading,
+                new_heading,
+                n_points=6,
+            )
+
+            if len(connector) > 0:
+                blended.extend(connector)
+
             blended.extend(new_path[new_start_idx:])
         else:
             blended.extend(new_path)
 
         return blended
+
+    @staticmethod
+    def _path_heading(path: list[tuple[float, float]], idx: int) -> float:
+        """Estimate local heading of a polyline at index idx."""
+        if len(path) < 2:
+            return 0.0
+
+        if idx <= 0:
+            p0 = path[0]
+            p1 = path[1]
+        elif idx >= len(path) - 1:
+            p0 = path[-2]
+            p1 = path[-1]
+        else:
+            p0 = path[idx - 1]
+            p1 = path[idx + 1]
+
+        return math.atan2(p1[1] - p0[1], p1[0] - p0[0])
+
+    @staticmethod
+    def _hermite_connector(
+        p0: tuple[float, float],
+        p1: tuple[float, float],
+        heading0: float,
+        heading1: float,
+        n_points: int = 6,
+    ) -> list[tuple[float, float]]:
+        """Generate interior points of a cubic Hermite connector between p0 and p1."""
+        dx = p1[0] - p0[0]
+        dy = p1[1] - p0[1]
+        dist = math.sqrt(dx * dx + dy * dy)
+        if dist < 1e-4 or n_points <= 0:
+            return []
+
+        tangent_scale = 0.45 * dist
+        m0 = (math.cos(heading0) * tangent_scale, math.sin(heading0) * tangent_scale)
+        m1 = (math.cos(heading1) * tangent_scale, math.sin(heading1) * tangent_scale)
+
+        points = []
+        for i in range(1, n_points + 1):
+            t = i / (n_points + 1)
+            t2 = t * t
+            t3 = t2 * t
+
+            h00 = 2.0 * t3 - 3.0 * t2 + 1.0
+            h10 = t3 - 2.0 * t2 + t
+            h01 = -2.0 * t3 + 3.0 * t2
+            h11 = t3 - t2
+
+            x = h00 * p0[0] + h10 * m0[0] + h01 * p1[0] + h11 * m1[0]
+            y = h00 * p0[1] + h10 * m0[1] + h01 * p1[1] + h11 * m1[1]
+            points.append((x, y))
+
+        return points
 
     @staticmethod
     def _distance_to_path(
